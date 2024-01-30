@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherApp</title>
+    <link rel="stylesheet" href="WeatherApp.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+</head>
+<body>
+
+    <div class="mainDiv">
+        <div class="imgSection">
+            <div class="leftDiv">
+                <h2 id="currentDay" class="defaultDay">Monday</h2>
+                <span id="currentDate" class="defaultDate">08 January 2024</span>
+                <div class="defaultIcon">
+                    <img id="currentIcon" src="./sunny-day.png" alt="sunny-day">
+                </div>
+                <div class="currentData">
+                    <h2 id="currentTemp" class="defaultTemp">30&deg; C </h2>
+                    <h3 id="currentDescription" class="defaultWeather">Weather Description</h3>
+                    <h3 id="displayFeelsLike">Feels Like</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="rightDiv">
+            <div class="search">
+                <input type="search" id="userLocation" placeholder="search location...">
+                <button type="button" id="searchBtn" class="userInput">Search</button>
+            </div>
+            <div class="output">
+                <div class="outputData">
+                    <p class="title">Location:</p>
+                    <span class="value" id="displayLocation"></span>
+                </div>
+                <div class="outputData">
+                    <p class="title">Temperature:</p>
+                    <span class="value" id="displayTemperature"> &deg;C</span>
+                </div>
+                <div class="outputData">
+                    <p class="title">Humidity:</p>
+                    <span class="value" id="displayHumidity"> %</span>
+                </div>
+                <div class="outputData">
+                    <p class="title">Wind Speed:</p>
+                    <span class="value" id="displayWindspeed"> kph</span>
+                </div>
+            </div>
+            <div class="dailyForecast">
+                <ul>
+                    <li>
+                        <span id="firstDayIcon" class="material-symbols-outlined">cloud</span>
+                        <span id="firstDay">Sat</span>
+                        <span id="firstDayTemp" class="dailyTemp">30&deg; C</span>
+                    </li>
+                    <li>
+                        <span id="secondDayIcon" class="material-symbols-outlined">rainy</span>
+                        <span id="secondDay">Sat</span>
+                        <span  id="secondDayTemp" class="dailyTemp">30&deg; C</span>
+                    </li>
+                    <li>
+                        <span id="thirdDayIcon" class="material-symbols-outlined">partly_cloudy_day</span>
+                        <span id="thirdDay">Sat</span>
+                        <span id="thirdDayTemp" class="dailyTemp">30&deg; C</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script src="WeatherApp.js"></script>
+
+</body>
+</html>
