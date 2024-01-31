@@ -13,7 +13,7 @@ const firstDayTemp = document.getElementById("firstDayTemp");
 //secondDay
 const secondDayIcon = document.getElementById("secondDayIcon");
 const secondDay = document.getElementById("secondDay");
-const secondDayTemp = document.getElementById("seondDayTemp");
+const secondDayTemp = document.getElementById("secondDayTemp");
 //thirdDay
 const thirdDayIcon = document.getElementById("thirdDayIcon");
 const thirdDay = document.getElementById("thirdDay");
@@ -107,69 +107,40 @@ async function checkWeather(city){
     const month = monthNames[now.getMonth()];
     const year = now.getFullYear();
     currentDate.innerHTML = `${date < 10 ? '0' : ''}${date} ${month < 10 ? '0' : ''}${month} ${year}`;
-
     updateWeatherIcon(weatherData.weather[0].description);//Update the weather icon based on the description
     currentTemp.innerHTML = `${(Math.round(weatherData.main.temp))}&deg C`;
     currentDescription.innerHTML =`${weatherData.weather[0].description}`;
+
 
 }
 
 async function threeDaysForecast(city){
     
     const APIKey = 'ce54ce650f9b949f7776744fe5760da8';
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${APIKey}`;
 
-    const response = await fetch(url);
-    const data = await response.json();
+    const forecastData = await fetch(`${forecastUrl}`).then(response => response.json());
+    const forecastDays = forecastData.list.slice(1, 4);
 
-    //extract and display the forecast for the next 3 days
-    const nextThreeDays = data.list.slice(0, 8 * 3);// Each day has 8 entries, so we take 3 days (8 * 3)
-    
-    console.log(nextThreeDays);
+    console.log(forecastData);
 
-    // firstDayIcon.innerHTML = ;
+    // firstDayIcon, firstDay, and firstDayTemp
+    firstDayIcon.src = `https://openweathermap.org/img/wn/${forecastDays[0].weather[0].description}.png`;
+    firstDay.innerHTML = daysOfWeek[(now.getDay() + 1) % 7].slice(0,3);
+    firstDayTemp.innerHTML = `${Math.round(forecastDays[0].main.temp)}&deg C`;
+
+    // secondDayIcon, secondDay, and secondDayTemp
+    secondDayIcon.src = `https://openweathermap.org/img/wn/${forecastDays[1].weather[0].description}.png`;
+    secondDay.innerHTML = daysOfWeek[(now.getDay() + 2) % 7].slice(0,3);
+    secondDayTemp.innerHTML = `${Math.round(forecastDays[1].main.temp)}&deg C`;
+
+    // thirdDayIcon, thirdDay, and thirdDayTemp
+    thirdDayIcon.src = `https://openweathermap.org/img/wn/${forecastDays[2].weather[0].description}.png`;
+    thirdDay.innerHTML = daysOfWeek[(now.getDay() + 3) % 7].slice(0,3);
+    thirdDayTemp.innerHTML = `${Math.round(forecastDays[2].main.temp)}&deg C`;
 
 }
-searchBtn.addEventListener('click', () => {
+searchBtn.addEventListener('click', async () => {
     checkWeather(userLocation.value);
+    threeDaysForecast(userLocation.value);
 });
-
-// main: 
-// feels_like: 39.99
-// humidity: 65
-// temp
-// : 
-// 32.99
-//wind: 
-// speed: 4.52
-//weather: description: 'clear sky'
-
-// Mapping of weather conditions to Font Awesome classes
-// const weatherIcons = {
-//     thunderstorm: 'fas fa-bolt',
-//     cloudMeatball: 'fas fa-cloud-meatball',
-//     cloudMoon: 'fas fa-cloud-moon',
-//     cloudMoonRain: 'fas fa-cloud-moon-rain',
-//     cloudRain: 'fas fa-cloud-rain',
-//     cloudShowersHeavy: 'fas fa-cloud-showers-heavy',
-//     cloudSun: 'fas fa-cloud-sun',
-//     cloudSunRain: 'fas fa-cloud-sun-rain',
-//     meteor: 'fas fa-meteor',
-//     pooStorm: 'fas fa-poo-storm',
-//     rainbow: 'fas fa-rainbow',
-//     smog: 'fas fa-smog',
-//     snowflake: 'fas fa-snowflake',
-//     snowflakeFar: 'far fa-snowflake',
-//     sun: 'fas fa-sun',
-//     sunFar: 'far fa-sun',
-//     temperatureHigh: 'fas fa-temperature-high',
-//     temperatureLow: 'fas fa-temperature-low',
-//     water: 'fas fa-water',
-//     wind: 'fas fa-wind',
-//     unknown: 'fas fa-question' // Default icon for unknown conditions
-// };
-// Function to update the weather icon based on the given weather condition
-// function updateWeatherIcon(weatherCondition){
-//     const currentIconClass = weatherIcons[weatherCondition] || weatherIcons.unknown;
-//     currentIcon.className = currentIconClass;//Updates the class of the weather icon container
-// }
